@@ -1,0 +1,84 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Prices with Machine Learning</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome, {{ name }}</h1>
+          <div class="row align-middle">
+              <div class="row align-middle">
+                  <script type="text/javascript">
+                      $(window).load(function() {
+                          if ($('#start')[0].type != 'date') $('#start').datepicker();
+                          if ($('#end')[0].type != 'date') $('#end').datepicker();
+                      });
+                  </script>
+                  <div class = "jumbotron bg-primary" align="center">
+                      <div align="center">
+                          <h2 class="badge badge-danger badge-lg">
+                              Historical data will download from  Yahoo Finance
+                          </h2>
+                      </div>
+                      <form method="POST" action="/predict" role="form" id="form">
+                          <div class="form-group">
+                              <div>
+                                  <span class="badge badge-warning">Symbol</span>
+                                  <input type="text"  class="form-control" name="symbol" placeholder="Symbol: eg. aapl, goog,..." required />
+                              </div>
+                             
+                              <div>
+                                  <label for="start"><span class="badge badge-warning">Start date:</span></label>
+  
+                                  <input type="date"  class="form-control" id="start" name="date-start" value="" min="1970-01-01" max="2019-12-31" required>
+                              </div>
+                              <div>
+                                  <label for="end"><span class="badge badge-warning">End date:</span></label>
+  
+                                  <input type="date" class="form-control" id="end" name="date-end" value="" min="1970-01-01" max="2019-12-31" required>
+                              </div>
+                             <!-- <input lass="btn btn-lg btn-primary btn-block" type="submit" value="Submit">-->
+                           
+                              
+                             
+                            
+                          </div>
+                          <div>
+                              <button type="submit" class="btn btn-warning btn-lg btn-block">predict</button>
+                           </div>
+                      </form>
+        </div>
+        
+          
+       
+      </div>
+      </div>
+    </div>
+{% endblock %}
